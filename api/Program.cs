@@ -1,4 +1,5 @@
 using api.Data;
+using api.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 builder.Services.AddCors();
+
+builder.Services.AddScoped<ITokenService, ITokenService>();
 
 var app = builder.Build();
 
