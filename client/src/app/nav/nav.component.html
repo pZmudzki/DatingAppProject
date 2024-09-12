@@ -1,0 +1,51 @@
+<header class="fixed top-0 left-0 right-0 h-16 bg-gray-900 flex items-center">
+  <div class="container mx-auto flex justify-between items-center">
+    <nav class="text-gray-400 flex items-center gap-4">
+      <h1>
+        <a href="/" class="text-white text-xl">Dating App</a>
+      </h1>
+      <ul class="hidden lg:flex items-center gap-4">
+        <li>
+          <a href="/">Matches</a>
+        </li>
+        <li>
+          <a href="/">Lists</a>
+        </li>
+        <li>
+          <a href="/">Messages</a>
+        </li>
+      </ul>
+    </nav>
+    <div>
+      <form
+        [formGroup]="authForm"
+        (ngSubmit)="onSubmit()"
+        class="hidden lg:flex gap-2"
+      >
+        <input
+          formControlName="username"
+          type="text"
+          placeholder="Username"
+          class="py-1 px-2 rounded-md"
+        />
+        <input
+          formControlName="password"
+          type="text"
+          placeholder="Password"
+          class="py-1 px-2 rounded-md"
+        />
+        <button
+          type="submit"
+          class="p-2 rounded-md border border-blue-400 text-blue-400"
+        >
+          Login
+        </button>
+      </form>
+      <button
+        class="lg:hidden text-white text-2xl border border-gray-600 py-1 px-4 rounded"
+      >
+        ☰
+      </button>
+    </div>
+  </div>
+</header>

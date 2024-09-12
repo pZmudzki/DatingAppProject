@@ -1,7 +1,10 @@
-<ul>
-  @for (user of users; track $index) {
-  <li>
-    {{ user.userName }}
-  </li>
-  }
-</ul>
+<app-nav></app-nav>
+<div class="mt-16 container mx-auto">
+  <ul>
+    @for (user of users; track $index) {
+    <li>
+      {{ user.userName }}
+    </li>
+    }
+  </ul>
+</div>
