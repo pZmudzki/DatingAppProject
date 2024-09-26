@@ -1,0 +1,24 @@
+<div class="container mt-32 mx-auto">
+  <div class="text-center">
+    @if(!registerMode){
+
+    <h1 class="text-5xl bold">Find your match</h1>
+    <p class="text-xl mt-5">
+      Come on in to your matches... all you need to do is siogn up!
+    </p>
+    <div class="flex items-center justify-center gap-4 mt-5">
+      <button
+        class="text-xl py-2 px-4 rounded-md bg-blue-700 text-white"
+        (click)="registerToggle()"
+      >
+        Register
+      </button>
+      <button class="text-xl py-2 px-4 rounded-md bg-blue-400">
+        Learn more
+      </button>
+    </div>
+    } @else {
+    <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+    }
+  </div>
+</div>
