@@ -4,6 +4,7 @@
       <h1>
         <a href="/" class="text-white text-xl">Dating App</a>
       </h1>
+      @if(accountService.currentUser()){
       <ul class="hidden lg:flex items-center gap-4">
         <li>
           <a href="/">Matches</a>
@@ -15,11 +16,14 @@
           <a href="/">Messages</a>
         </li>
       </ul>
+      }
     </nav>
     <div>
+      @if(!accountService.currentUser()){
+
       <form
         [formGroup]="authForm"
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="login()"
         class="hidden lg:flex gap-2"
       >
         <input
@@ -30,7 +34,7 @@
         />
         <input
           formControlName="password"
-          type="text"
+          type="password"
           placeholder="Password"
           class="py-1 px-2 rounded-md"
         />
@@ -41,6 +45,20 @@
           Login
         </button>
       </form>
+      } @else {
+      <div class="hidden lg:flex gap-2">
+        <a href="#" class="p-2 rounded-md border border-gray-400 text-gray-400">
+          Edit profile</a
+        >
+        <a
+          href="#"
+          class="p-2 rounded-md border border-red-400 text-red-400"
+          (click)="logout()"
+        >
+          Logout
+        </a>
+      </div>
+      }
       <button
         class="lg:hidden text-white text-2xl border border-gray-600 py-1 px-4 rounded"
       >

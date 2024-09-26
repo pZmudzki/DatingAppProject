@@ -10,18 +10,24 @@ import { AccountService } from '../services/account.service';
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
-  private accountService = inject(AccountService);
+  accountService = inject(AccountService);
 
   authForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
 
-  onSubmit(): void {
+  login(): void {
     this.accountService.login(this.authForm.value).subscribe({
-      next: (data) => console.log(data),
+      next: (data) => {
+        console.log(data);
+      },
       error: (error) => console.error(error),
       complete: () => console.log('complete'),
     });
+  }
+
+  logout(): void {
+    this.accountService.logout();
   }
 }
