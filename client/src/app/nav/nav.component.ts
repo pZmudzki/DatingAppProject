@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -11,6 +13,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavComponent {
   accountService = inject(AccountService);
+  private router = inject(Router);
+  private toast = inject(ToastrService);
 
   authForm = new FormGroup({
     username: new FormControl(''),
@@ -20,14 +24,16 @@ export class NavComponent {
   login(): void {
     this.accountService.login(this.authForm.value).subscribe({
       next: (data) => {
+        this.router.navigateByUrl('/members');
         console.log(data);
       },
-      error: (error) => console.error(error),
+      error: (error) => this.toast.error(error.error, 'Error'),
       complete: () => console.log('complete'),
     });
   }
 
   logout(): void {
     this.accountService.logout();
+    this.router.navigateByUrl('/');
   }
 }
