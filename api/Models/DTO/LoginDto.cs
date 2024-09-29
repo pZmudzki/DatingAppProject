@@ -1,9 +1,13 @@
-﻿namespace api.Models.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace api.Models.DTO
 {
     public class LoginDto
     {
-        public required string Username { get; set; }
+        [Required]
+        public string Username { get; set; } = string.Empty;
 
-        public required string Password { get; set; }
+        [Required]
+        public string Password { get; set; } = string.Empty;
     }
 }
