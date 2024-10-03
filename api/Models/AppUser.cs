@@ -35,9 +35,9 @@ namespace api.Models
         public byte[] PasswordSalt { get; set; } = [];
 
 
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
+        //public int GetAge()
+        //{
+        //    return DateOfBirth.CalculateAge();
+        //}
     }
 }
