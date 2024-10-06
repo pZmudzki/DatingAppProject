@@ -12,7 +12,7 @@ export class MembersService {
   private accountService = inject(AccountService);
   baseUrl = environment.apiUrl;
 
-  getMemers() {
+  getMembers() {
     return this.http.get<Member[]>(
       this.baseUrl + 'users',
       this.getHttpOptions()
