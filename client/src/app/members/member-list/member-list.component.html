@@ -1,5 +1,5 @@
-<div>
+<div class="grid grid-cols-6 gap-7">
   @for(member of members; track $index){
-  <p>{{ member.knownAs }}</p>
+  <app-member-card [member]="member" />
   }
 </div>
