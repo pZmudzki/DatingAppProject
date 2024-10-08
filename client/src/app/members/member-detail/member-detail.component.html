@@ -4,7 +4,7 @@
     <div>
       <img
         class="h-auto w-full"
-        src="{{ member.photoUrl }}"
+        src="{{ member.photoUrl || './user.png' }}"
         alt="{{ member.userName }}s profile picture"
       />
     </div>

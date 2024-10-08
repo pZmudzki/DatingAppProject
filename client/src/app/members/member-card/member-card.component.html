@@ -3,7 +3,7 @@
 >
   <div class="overflow-hidden relative">
     <img
-      src="{{ member().photoUrl }}"
+      src="{{ member().photoUrl || './user.png' }}"
       alt="{{ member().userName }}s photo"
       class="w-full h-auto group-hover/member:scale-110 transition-all"
     />
