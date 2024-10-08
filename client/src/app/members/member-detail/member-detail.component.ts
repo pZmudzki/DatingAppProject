@@ -13,7 +13,10 @@ import { Member } from '../../_models/member';
 export class MemberDetailComponent implements OnInit {
   private memberService = inject(MembersService);
   private route = inject(ActivatedRoute);
+
   member?: Member;
+
+  selectedTab: string = 'about';
 
   ngOnInit(): void {
     this.loadMember();
@@ -25,5 +28,9 @@ export class MemberDetailComponent implements OnInit {
     this.memberService.getMember(username).subscribe({
       next: (member) => (this.member = member),
     });
+  }
+
+  changeTab(tab: string) {
+    this.selectedTab = tab;
   }
 }

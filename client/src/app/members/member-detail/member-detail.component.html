@@ -1,5 +1,5 @@
 @if(member){
-<div class="grid grid-cols-4">
+<div class="grid grid-cols-4 gap-6">
   <div class="flex flex-col border gap-5 rounded-xl overflow-hidden">
     <div>
       <img
@@ -35,6 +35,81 @@
       >
         Message
       </button>
+    </div>
+  </div>
+  <div class="col-span-3">
+    <ul class="flex border-b">
+      <li>
+        <button
+          class="py-2 px-6 {{
+            selectedTab == 'about'
+              ? 'border-b-4 border-gray-900 '
+              : 'hover:border-b-4 border-gray-300'
+          }}"
+          (click)="changeTab('about')"
+        >
+          About {{ member.knownAs }}
+        </button>
+      </li>
+      <li>
+        <button
+          class="py-2 px-6 {{
+            selectedTab == 'interests'
+              ? 'border-b-4 border-gray-900 '
+              : 'hover:border-b-4 border-gray-300'
+          }}"
+          (click)="changeTab('interests')"
+        >
+          Interests
+        </button>
+      </li>
+      <li>
+        <button
+          class="py-2 px-6 {{
+            selectedTab == 'photos'
+              ? 'border-b-4 border-gray-900 '
+              : 'hover:border-b-4 border-gray-300'
+          }}"
+          (click)="changeTab('photos')"
+        >
+          Photos
+        </button>
+      </li>
+      <li>
+        <button
+          class="py-2 px-6 {{
+            selectedTab == 'messages'
+              ? 'border-b-4 border-gray-900 '
+              : 'hover:border-b-4 border-gray-300'
+          }}"
+          (click)="changeTab('messages')"
+        >
+          Messages
+        </button>
+      </li>
+    </ul>
+    <div class="mt-3">
+      @switch (selectedTab) { @case ('about') {
+      <div>
+        <div>
+          <h2 class="text-2xl font-bold">Description</h2>
+          <p class="text-lg">{{ member.introduction }}</p>
+        </div>
+        <div class="mt-3">
+          <h2 class="text-2xl font-bold">Looking for</h2>
+          <p class="text-lg">{{ member.lookingFor }}</p>
+        </div>
+      </div>
+      } @case ('interests') {
+      <div>
+        <h2 class="text-2xl font-bold">Interests</h2>
+        <p class="text-lg">{{ member.interests }}</p>
+      </div>
+      } @case ('photos') {
+      <div>photos</div>
+      } @case ('messages') {
+      <div>messages</div>
+      }}
     </div>
   </div>
 </div>
