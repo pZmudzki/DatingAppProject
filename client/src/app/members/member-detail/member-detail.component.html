@@ -1,2 +1,41 @@
-<p>{{ member?.knownAs }}</p>
-<img src="{{ member?.photoUrl }}" alt="" />
+@if(member){
+<div class="grid grid-cols-4">
+  <div class="flex flex-col border gap-5 rounded-xl overflow-hidden">
+    <div>
+      <img
+        class="h-auto w-full"
+        src="{{ member.photoUrl }}"
+        alt="{{ member.userName }}s profile picture"
+      />
+    </div>
+    <ul class="px-4 flex flex-col gap-2">
+      <li>
+        <h3 class="font-bold">Location:</h3>
+        <p>{{ member.city }} - {{ member.country }}</p>
+      </li>
+      <li>
+        <h3 class="font-bold">Age:</h3>
+        <p>{{ member.age }}</p>
+      </li>
+      <li>
+        <h3 class="font-bold">Last Active:</h3>
+        <p>{{ member.lastActive | date }}</p>
+      </li>
+      <li>
+        <h3 class="font-bold">Member since:</h3>
+        <p>{{ member.created | date }}</p>
+      </li>
+    </ul>
+    <div class="bg-gray-400 border-t px-4 py-2 flex gap-3">
+      <button class="bg-blue-800 rounded-xl text-white py-1 w-full text-lg">
+        Like
+      </button>
+      <button
+        class="border-2 border-black rounded-xl py-1 w-full text-lg font bold bg-white"
+      >
+        Message
+      </button>
+    </div>
+  </div>
+</div>
+}
