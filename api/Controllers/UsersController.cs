@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace api.Controllers
 {
@@ -26,9 +27,27 @@ namespace api.Controllers
         {
             var user = await userRepository.GetMemberByUsernameAsync(username);
 
-            if(user == null) return NotFound();
+            if (user == null) return NotFound();
 
             return Ok(user);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (username == null) return BadRequest("No username found in token");
+
+            var user = await userRepository.GetUserByUsernameAsync(username);
+
+            if (user == null) return BadRequest("Could not find user");
+
+            mapper.Map(memberUpdateDto, user);
+
+            if(await userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }

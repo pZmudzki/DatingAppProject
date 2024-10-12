@@ -2,6 +2,7 @@
 using api.Models;
 using api.Models.DTO;
 using AutoMapper;
+using System.ComponentModel.Design;
 
 namespace api.Helpers
 {
@@ -15,6 +16,7 @@ namespace api.Helpers
                 .ForMember(dest => dest.PhotoUrl,
                 opt => opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain)!.Url));
             CreateMap<Photo, PhotoDto>();
+            CreateMap<MemberUpdateDto, AppUser>();
         }
     }
 }
