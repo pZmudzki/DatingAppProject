@@ -5,13 +5,13 @@ import { MembersService } from '../../_services/members.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { DatePipe } from '@angular/common';
-import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { ToastrService } from 'ngx-toastr';
+import { PhotoEditorComponent } from '../photo-editor/photo-editor.component';
 
 @Component({
   selector: 'app-member-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, DatePipe, GalleryModule],
+  imports: [ReactiveFormsModule, DatePipe, PhotoEditorComponent],
   templateUrl: './member-edit.component.html',
 })
 export class MemberEditComponent implements OnInit {
@@ -26,7 +26,6 @@ export class MemberEditComponent implements OnInit {
   private memberService = inject(MembersService);
   private toast = inject(ToastrService);
 
-  images: GalleryItem[] = [];
   selectedTab: string = 'about';
 
   editForm: FormGroup = new FormGroup({});
@@ -43,14 +42,6 @@ export class MemberEditComponent implements OnInit {
     this.memberService.getMember(user.username).subscribe({
       next: (member) => {
         this.member = member;
-        member.photos.map((photo) => {
-          this.images.push(
-            new ImageItem({
-              src: photo.url,
-              thumb: photo.url,
-            })
-          );
-        });
 
         this.editForm = new FormGroup({
           introduction: new FormControl(this.member?.introduction),

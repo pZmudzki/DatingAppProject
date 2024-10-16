@@ -132,8 +132,8 @@
       </form>
       } @case ('photos') {
       <div>
-        @if(images.length > 0){
-        <gallery [items]="images"></gallery>
+        @if(member.photos.length > 0){
+        <app-photo-editor [member]="member" />
         }
       </div>
       }}
