@@ -74,5 +74,26 @@ namespace api.Controllers
 
             return BadRequest("Cannot upload photo");
         }
+
+        [HttpPost("set-main-photo/{photoId:int}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId)
+        {
+            var user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            if (user == null) return BadRequest("Could not find the user");
+
+            var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
+
+            if (photo == null) return BadRequest("Photo with specified id doesn't exist");
+            if (photo.IsMain == true) return BadRequest("Photo is already set as a main photo");
+
+            var currentMain = user.Photos.FirstOrDefault(photo => photo.IsMain);
+            if(currentMain != null) currentMain.IsMain = false;
+            photo.IsMain = true;
+
+            if(await userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Problem setting a main photo");
+        }
     }
 }
