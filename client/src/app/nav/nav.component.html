@@ -54,7 +54,12 @@
         </button>
       </form>
       } @else {
-      <div class="hidden lg:flex gap-2">
+      <div class="hidden lg:flex items-center gap-2">
+        <img
+          class="max-h-10 rounded-md"
+          src="{{ accountService.currentUser()?.photoUrl || './user.png' }}"
+          alt="Current users profile picture"
+        />
         <a
           routerLink="/member/edit"
           class="p-2 rounded-md border border-gray-400 text-gray-400"
