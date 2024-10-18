@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.WebSockets;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
@@ -94,6 +95,31 @@ namespace api.Controllers
             if(await userRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Problem setting a main photo");
+        }
+
+        [HttpDelete("delete-photo/{photoId:int}")]
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var user = await userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            if (user == null) return BadRequest("Could not find the user");
+
+            var photo = user.Photos.FirstOrDefault(photo => photo.Id == photoId);
+
+            if (photo == null) return BadRequest("Photo with specified id doesn't exist");
+            if (photo.IsMain == true) return BadRequest("Cannot delete main photo");
+
+            if(photo.PublicId != null)
+            {
+                var result = await photoService.DeletePhotoAsync(photo.PublicId);
+                if(result.Error != null) return BadRequest(result.Error.Message);
+            }
+
+            user.Photos.Remove(photo);
+
+            if (await userRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("Problem deleting a photo");
         }
     }
 }
