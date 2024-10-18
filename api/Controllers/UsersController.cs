@@ -75,7 +75,7 @@ namespace api.Controllers
             return BadRequest("Cannot upload photo");
         }
 
-        [HttpPost("set-main-photo/{photoId:int}")]
+        [HttpPut("set-main-photo/{photoId:int}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
             var user = await userRepository.GetUserByUsernameAsync(User.GetUsername());

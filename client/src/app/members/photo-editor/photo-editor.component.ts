@@ -16,11 +16,13 @@ import { MembersService } from '../../_services/members.service';
 export class PhotoEditorComponent implements OnInit {
   private accountService = inject(AccountService);
   private memberService = inject(MembersService);
+
   member = input.required<Member>();
   uploader?: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
   memberChange = output<Member>();
+
   ngOnInit(): void {
     this.initializeUploader();
   }
@@ -38,24 +40,24 @@ export class PhotoEditorComponent implements OnInit {
   //     },
   //   });
   // }
-  // setMainPhoto(photo: Photo) {
-  //   this.memberService.setMainPhoto(photo).subscribe({
-  //     next: (_) => {
-  //       const user = this.accountService.currentUser();
-  //       if (user) {
-  //         user.photoUrl = photo.url;
-  //         this.accountService.setCurrentUser(user);
-  //       }
-  //       const updatedMember = { ...this.member() };
-  //       updatedMember.photoUrl = photo.url;
-  //       updatedMember.photos.forEach((p) => {
-  //         if (p.isMain) p.isMain = false;
-  //         if (p.id === photo.id) p.isMain = true;
-  //       });
-  //       this.memberChange.emit(updatedMember);
-  //     },
-  //   });
-  // }
+  setMainPhoto(photo: Photo) {
+    this.memberService.setMainPhoto(photo).subscribe({
+      next: (_) => {
+        const user = this.accountService.currentUser();
+        if (user) {
+          user.photoUrl = photo.url;
+          this.accountService.setCurrentUser(user);
+        }
+        const updatedMember = { ...this.member() };
+        updatedMember.photoUrl = photo.url;
+        updatedMember.photos.forEach((p) => {
+          if (p.isMain) p.isMain = false;
+          if (p.id === photo.id) p.isMain = true;
+        });
+        this.memberChange.emit(updatedMember);
+      },
+    });
+  }
 
   initializeUploader() {
     this.uploader = new FileUploader({

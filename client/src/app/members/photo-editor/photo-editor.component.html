@@ -4,6 +4,7 @@
     <img src="{{ photo.url }}" alt="Users photo" class="w-full" />
     <div class="flex">
       <button
+        (click)="setMainPhoto(photo)"
         class="w-1/2 text-center font-bold {{
           photo.isMain ? 'bg-green-400' : 'bg-gray-100'
         }}"
