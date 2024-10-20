@@ -6,21 +6,41 @@
   <h2 class="text-center text-3xl text-blue-500 mb-4 font-bold">Sign up</h2>
   <hr />
   <div class="flex flex-col gap-4 mt-4">
-    <input
-      formControlName="username"
-      type="text"
-      placeholder="Username"
-      class="border border-gray-400 py-2 px-4 rounded-md"
-    />
-    <input
-      formControlName="password"
-      type="password"
-      placeholder="Password"
-      class="border border-gray-400 py-2 px-4 rounded-md"
-    />
+    <app-text-input
+      [formControl]="$any(registerForm.controls['username'])"
+      [label]="'Username'"
+    >
+    </app-text-input>
+
+    <app-text-input
+      [formControl]="$any(registerForm.controls['password'])"
+      [label]="'Password'"
+      [type]="'password'"
+    >
+    </app-text-input>
+
+    <app-text-input
+      [formControl]="$any(registerForm.controls['confirmPassword'])"
+      [label]="'Confirm password'"
+      [type]="'password'"
+    >
+    </app-text-input>
   </div>
+  @if (validationErrors) {
+  <div class="alert alert-danger text-start">
+    <ul>
+      @for (error of validationErrors; track $index) {
+      <li>{{ error }}</li>
+      }
+    </ul>
+  </div>
+  }
   <div class="flex items-center justify-center gap-10 mt-5">
-    <button type="submit" class="py-2 px-4 rounded-md bg-blue-700 text-white">
+    <button
+      [disabled]="!registerForm.valid"
+      type="submit"
+      class="py-2 px-4 rounded-md bg-blue-700 text-white"
+    >
       Register
     </button>
     <button type="button" (click)="cancel()" class="">Cancel</button>
