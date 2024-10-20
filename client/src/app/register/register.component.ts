@@ -10,11 +10,12 @@ import {
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../_forms/text-input/text-input.component';
+import { DatePickerComponent } from '../_forms/date-picker/date-picker.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, TextInputComponent],
+  imports: [ReactiveFormsModule, TextInputComponent, DatePickerComponent],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent implements OnInit {
@@ -32,7 +33,12 @@ export class RegisterComponent implements OnInit {
 
   initializeForm() {
     this.registerForm = new FormGroup({
+      gender: new FormControl('male'),
       username: new FormControl('', Validators.required),
+      knownAs: new FormControl('', Validators.required),
+      dateOfBirth: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      country: new FormControl('', Validators.required),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
