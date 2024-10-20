@@ -1,0 +1,36 @@
+<div>
+  <input
+    class="border py-2 px-4 rounded-md w-full {{
+      control.touched && control.invalid ? 'border-red-600' : 'border-gray-400'
+    }}"
+    [type]="type()"
+    [formControl]="control"
+    placeholder="{{ label() }}"
+  />
+  <div
+    *ngIf="control.hasError('required')"
+    class="text-red-500 font-bold text-start"
+  >
+    Please enter a {{ label() }}
+  </div>
+  <div
+    *ngIf="control.hasError('minlength')"
+    class="text-red-500 font-bold text-start"
+  >
+    {{ label() }} must be at least
+    {{control.errors?.['minlength'].requiredLength}} characters
+  </div>
+  <div
+    *ngIf="control.hasError('maxlength')"
+    class="text-red-500 font-bold text-start"
+  >
+    {{ label() }} must be at most
+    {{control.errors?.['maxlength'].requiredLength}} characters
+  </div>
+  <div
+    *ngIf="control.hasError('isMatching')"
+    class="text-red-500 font-bold text-start"
+  >
+    Passwords do not match
+  </div>
+</div>
