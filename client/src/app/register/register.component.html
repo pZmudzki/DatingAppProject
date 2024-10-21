@@ -72,15 +72,7 @@
     >
     </app-text-input>
   </div>
-  @if (validationErrors) {
-  <div class="alert alert-danger text-start">
-    <ul>
-      @for (error of validationErrors; track $index) {
-      <li>{{ error }}</li>
-      }
-    </ul>
-  </div>
-  }
+
   <div class="flex items-center justify-center gap-10 mt-5">
     <button
       [disabled]="!registerForm.valid"

@@ -132,12 +132,10 @@
       </form>
       } @case ('photos') {
       <div>
-        @if(member.photos.length > 0){
         <app-photo-editor
           (memberChange)="onMemberChange($event)"
           [member]="member"
         />
-        }
       </div>
       }}
     </div>

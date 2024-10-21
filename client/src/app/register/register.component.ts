@@ -11,6 +11,7 @@ import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { TextInputComponent } from '../_forms/text-input/text-input.component';
 import { DatePickerComponent } from '../_forms/date-picker/date-picker.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,9 +22,9 @@ import { DatePickerComponent } from '../_forms/date-picker/date-picker.component
 export class RegisterComponent implements OnInit {
   private toast = inject(ToastrService);
   private accountService = inject(AccountService);
+  private router = inject(Router);
   registerForm: FormGroup = new FormGroup({});
   cancelRegister = output<boolean>();
-  validationErrors: string[] | undefined;
 
   model: any = {};
 
@@ -66,10 +67,10 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.accountService.register(this.registerForm.value).subscribe({
-      next: (response) => {
-        this.cancel();
+      next: (_) => this.router.navigateByUrl('/members'),
+      error: (error) => {
+        console.log(error);
       },
-      error: (error) => this.toast.error(error.error, 'Error'),
     });
   }
 
