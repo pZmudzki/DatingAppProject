@@ -12,6 +12,8 @@
 
         public string? KnownAs { get; set; }
 
+        public DateOnly DateOfBirth { get; set; }
+
         public DateTime Created { get; set; }
 
         public DateTime LastActive { get; set; }
