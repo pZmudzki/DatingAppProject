@@ -1,5 +1,6 @@
 ﻿using api.Data;
 using api.Extensions;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using api.Models.DTO;
@@ -18,9 +19,11 @@ namespace api.Controllers
     public class UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService) : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await userRepository.GetMembersAsync();
+            var users = await userRepository.GetMembersAsync(userParams);
+
+            Response.AddPaginationHeader(users);
 
             return Ok(users);
         }
