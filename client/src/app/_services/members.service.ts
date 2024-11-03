@@ -23,11 +23,19 @@ export class MembersService {
   user = this.accountService.currentUser();
   userParams = signal<UserParams>(new UserParams(this.user));
 
+  memberCache = new Map();
+
   resetUserParams() {
     this.userParams.set(new UserParams(this.user));
   }
 
   getMembers() {
+    const response = this.memberCache.get(
+      Object.values(this.userParams()).join('-')
+    );
+
+    if (response) return setPaginatedResponse(response, this.paginatedResult);
+
     let params = setPaginationHeaders(
       this.userParams().pageNumber,
       this.userParams().pageSize
@@ -43,14 +51,20 @@ export class MembersService {
       .subscribe({
         next: (response) => {
           setPaginatedResponse(response, this.paginatedResult);
+          this.memberCache.set(
+            Object.values(this.userParams()).join('-'),
+            response
+          );
         },
       });
   }
 
   getMember(username: string) {
-    // const member = this.members().find((x) => x.userName === username);
+    const member: Member = [...this.memberCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.body), [])
+      .find((m: Member) => m.userName === username);
 
-    // if (member !== undefined) return of(member);
+    if (member !== undefined) return of(member);
 
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
