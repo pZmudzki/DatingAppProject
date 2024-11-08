@@ -137,7 +137,12 @@
           </g>
         </g>
       </svg>
-      <span> {{ member().userName | titlecase }}, {{ member().age }} </span>
+      <span>
+        {{ member().userName | titlecase }}, {{ member().age }}
+        @if(hasLiked()){
+        <i class="fa fa-heart text-red-600"></i>
+        }
+      </span>
     </p>
     <p class="text-center text-gray-600">{{ member().knownAs }}</p>
   </div>
