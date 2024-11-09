@@ -1,4 +1,5 @@
-﻿using api.Models;
+﻿using api.Helpers;
+using api.Models;
 using api.Models.DTO;
 
 namespace api.Interfaces
@@ -6,7 +7,7 @@ namespace api.Interfaces
     public interface ILikesRepository
     {
         Task<UserLike?> GetUserLike(int sourceUserId, int targetUserId);
-        Task<IEnumerable<MemberDto>> GetUserLikes(string predicate, int userId);
+        Task<PagedList<MemberDto>> GetUserLikes(LikesParams likesParams);
         Task<IEnumerable<int>> GetCurrentUserLikeIds(int currentUserId);
         void DeleteLike(UserLike like);
         void AddLike(UserLike like);
