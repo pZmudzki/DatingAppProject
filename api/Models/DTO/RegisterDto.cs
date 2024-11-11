@@ -19,7 +19,7 @@ namespace api.Models.DTO
         [Required]
         public string? City { get; set; }
 
-        [Required] 
+        [Required]
         public string? Country { get; set; }
 
         [Required]

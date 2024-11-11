@@ -1,6 +1,4 @@
-﻿using api.Extensions;
-
-namespace api.Models
+﻿namespace api.Models
 {
     public class AppUser
     {
@@ -33,6 +31,9 @@ namespace api.Models
         public List<UserLike> LikedByUsers { get; set; } = [];
 
         public List<UserLike> LikedUsers { get; set; } = [];
+
+        public List<Message> MessagesSent { get; set; } = [];
+        public List<Message> MessagesReceived { get; set; } = [];
 
         public byte[] PasswordHash { get; set; } = [];
 
