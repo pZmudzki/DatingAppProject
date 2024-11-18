@@ -23,6 +23,8 @@
         <i class="fa fa-heart"></i>
       </button>
       <button
+        routerLink="{{ '/members/' + member().userName }}"
+        [queryParams]="{ tab: 'messages' }"
         class="border-2 border-white rounded-xl bg-gray-900 p-2 text-white stroke-white flex jusitfy-center items-center"
       >
         <i class="fa fa-envelope"></i>

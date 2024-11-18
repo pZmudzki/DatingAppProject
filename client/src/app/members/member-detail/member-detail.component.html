@@ -88,7 +88,7 @@
         </button>
       </li>
     </ul>
-    <div class="mt-3">
+    <div class="mt-3" #memberTabs>
       @switch (selectedTab) { @case ('about') {
       <div>
         <div>
@@ -112,7 +112,11 @@
         }
       </div>
       } @case ('messages') {
-      <div>messages</div>
+      <app-member-messages
+        [username]="member.userName"
+        [messages]="messages"
+        (updateMessages)="onUpdateMessages($event)"
+      />
       }}
     </div>
   </div>
