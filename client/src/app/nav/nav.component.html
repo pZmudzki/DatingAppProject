@@ -23,7 +23,7 @@
             >Messages</a
           >
         </li>
-        <li>
+        <li *appHasRole="['Admin', 'Moderator']">
           <a routerLink="/admin" routerLinkActive="border-b border-gray-400"
             >Admin</a
           >

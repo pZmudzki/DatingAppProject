@@ -2,13 +2,18 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-
+import { HasRoleDirective } from '../_directives/has-role.directive';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, RouterLinkActive],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    RouterLinkActive,
+    HasRoleDirective,
+  ],
   templateUrl: './nav.component.html',
 })
 export class NavComponent {
