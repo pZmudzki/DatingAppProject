@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class DataContext(DbContextOptions options) : IdentityDbContext<
-        AppUser,
+    public class DataContext(DbContextOptions options) : IdentityDbContext
+        <AppUser,
         AppRole,
         int,
         IdentityUserClaim<int>,
         AppUserRole,
         IdentityUserLogin<int>,
-        IdentityRoleClaim<int>, IdentityUserToken<int>
-        >(options)
+        IdentityRoleClaim<int>,
+        IdentityUserToken<int>>(options)
     {
 
         public DbSet<UserLike> Likes { get; set; }
@@ -27,13 +27,13 @@ namespace api.Data
             builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)
                 .WithOne(u => u.User)
-                .HasForeignKey(u => u.UserId)
+                .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
 
             builder.Entity<AppRole>()
                 .HasMany(ur => ur.UserRoles)
                 .WithOne(u => u.Role)
-                .HasForeignKey(u => u.UserId)
+                .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
 
             builder.Entity<UserLike>().HasKey((key) => new { key.SourceUserId, key.TargetUserId });
